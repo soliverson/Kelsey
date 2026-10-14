@@ -1,0 +1,1287 @@
+/* ==========================================================
+   CASH IT OR CHANCE IT — KELSEY'S 35TH (BRITNEY EDITION)
+   One clean stylesheet. No overrides-on-overrides.
+   Works on: phone, tablet, desktop, and TV fullscreen.
+
+   Art files used (in Game Files/images/):
+     britney-background.webp   (scrapbook title art)
+   ========================================================== */
+
+:root {
+  --pink: #ff1f8e;
+  --pink-deep: #c4006a;
+  --pink-soft: #ffb7d9;
+  --blush: #fff0f7;
+  --navy: #0b2557;
+  --navy-deep: #061434;
+  --plum: #1a0412;
+  --gold: #ffd36b;
+
+  --font-body: "Poppins", "Segoe UI", system-ui, Arial, sans-serif;
+  --font-marker: "Permanent Marker", "Segoe Print", "Comic Sans MS", cursive;
+
+  --art: url("images/britney-background.webp");
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { background: var(--plum); -webkit-text-size-adjust: 100%; }
+
+ul { margin: 0; padding: 0; list-style: none; }
+
+button { font-family: inherit; cursor: pointer; }
+
+button:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+}
+
+/* ==========================================================
+   PAGE FRAME
+   Everything sits in one grid column:
+   row 1 = banner art (+ ribbons on top of it)
+   row 2 = game, row 3 = footer bar, row 4 = bottom art
+   ========================================================== */
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto auto auto;
+  align-content: start;
+
+  font-family: var(--font-body);
+  color: #fff;
+
+  background:
+    radial-gradient(circle at 15% 30%, rgba(255, 255, 255, .22), transparent 28%),
+    radial-gradient(circle at 85% 60%, rgba(255, 255, 255, .16), transparent 30%),
+    linear-gradient(180deg, #ff80bd 0%, #ff4fa0 45%, #cf1472 100%);
+  background-attachment: fixed;
+}
+
+/* ---------------- Banner art ---------------- */
+
+.birthday-top-scenery {
+  grid-area: 1 / 1;
+  height: clamp(150px, 15.5vw, 300px);
+
+  background: var(--art) center top / cover no-repeat;
+  border-bottom: 4px solid var(--pink);
+  box-shadow: 0 8px 26px rgba(110, 0, 64, .45);
+}
+
+.birthday-bottom-scenery {
+  grid-area: 4 / 1;
+  height: clamp(56px, 6vw, 110px);
+
+  background: var(--art) center bottom / cover no-repeat;
+  border-top: 4px solid var(--pink);
+}
+
+/* ---------------- Header: ribbons on top of the art ---------------- */
+
+header {
+  grid-area: 1 / 1;
+  align-self: end;
+  position: relative;
+  z-index: 2;
+  padding: 0 14px 14px;
+  pointer-events: none;
+}
+
+#headerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  max-width: 1700px;
+  margin: 0 auto;
+}
+
+/* The scrapbook art already contains the big title, so the live
+   title stays in the page for screen readers but is not drawn. */
+#headerTitles {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.birthday-header-message,
+.birthday-bottom-message {
+  padding: 10px 16px;
+  text-align: center;
+  color: #fff;
+  font: 400 clamp(.78rem, 1.05vw, 1.1rem) / 1.25 var(--font-marker);
+  background: linear-gradient(145deg, #ff2c9a, var(--pink-deep));
+  border: 2px solid #ffc2e0;
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(110, 0, 64, .5);
+}
+
+.birthday-message-left  { transform: rotate(-2deg); }
+.birthday-message-right { transform: rotate(2deg); }
+
+/* ==========================================================
+   MAIN: BOARD + SIDE PANEL
+   ========================================================== */
+
+main {
+  grid-area: 2 / 1;
+  width: 100%;
+  max-width: 1700px;
+  margin: 0 auto;
+  padding: 16px 14px;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(235px, 19vw, 290px);
+  gap: 14px;
+  align-items: start;
+}
+
+#briefcasesSection {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 14px 14px;
+
+  background: linear-gradient(180deg, rgba(30, 6, 24, .95), rgba(9, 3, 11, .97));
+  border: 2px solid var(--pink);
+  border-radius: 18px;
+  box-shadow:
+    0 0 0 4px rgba(255, 255, 255, .22),
+    0 12px 30px rgba(90, 0, 50, .45);
+}
+
+/* Instructions sit ABOVE the photos so they are always seen first. */
+#briefcasesInfo {
+  order: -1;
+  margin: 0 0 14px;
+}
+
+#gameMessage {
+  margin: 0;
+  padding: 10px 18px;
+  text-align: center;
+  color: #fff;
+  font: 400 clamp(1.05rem, 1.6vw, 1.6rem) / 1.2 var(--font-marker);
+  letter-spacing: .02em;
+  background: rgba(255, 31, 142, .2);
+  border: 2px dashed var(--pink-soft);
+  border-radius: 999px;
+}
+
+/* ==========================================================
+   PHOTO CARDS
+   ========================================================== */
+
+#briefcasesContainer {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 24px 12px;
+  padding-top: 12px;
+}
+
+.briefcase {
+  position: relative;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 6px 6px 5px;
+
+  background: linear-gradient(160deg, #ff8cc6, var(--pink) 45%, #a8005a);
+  border: 2px solid #ffc2e0;
+  border-radius: 14px;
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, .55),
+    inset 0 1px 2px rgba(255, 255, 255, .6);
+
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+/* Carry handle */
+.briefcase::before {
+  content: "";
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  width: 38%;
+  height: 13px;
+  transform: translateX(-50%);
+  background: var(--pink-deep);
+  border: 3px solid #ffc2e0;
+  border-bottom: 0;
+  border-radius: 8px 8px 0 0;
+  pointer-events: none;
+}
+
+.briefcase-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center 18%;
+  background: #2a1022;
+  border: 2px solid rgba(255, 255, 255, .9);
+  border-radius: 9px;
+}
+
+.briefcase-number {
+  margin-top: 5px;
+  padding: 6px 4px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  color: var(--navy);
+  background: #fff;
+  border-radius: 8px;
+
+  font-weight: 800;
+  font-size: clamp(.85rem, 1.2vw, 1.2rem);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.briefcase:not(.opened):not(.personal) { cursor: pointer; }
+
+@media (hover: hover) {
+  .briefcase:not(.opened):not(.personal):hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 0 0 2px #fff,
+      0 0 18px rgba(255, 31, 142, .9),
+      0 8px 14px rgba(0, 0, 0, .6);
+  }
+}
+
+.briefcase:not(.opened):not(.personal):active { transform: scale(.97); }
+
+/* Revealed photo: dimmed, with its prize amount on the label */
+.briefcase.opened {
+  background: linear-gradient(160deg, #3b2a47, #1c1224);
+  border-color: #5e486b;
+  box-shadow: none;
+  cursor: default;
+}
+
+.briefcase.opened::before {
+  background: #3b2a47;
+  border-color: #5e486b;
+}
+
+.briefcase.opened .briefcase-img {
+  filter: grayscale(1) brightness(.5);
+  border-color: rgba(255, 255, 255, .3);
+}
+
+.briefcase.opened .briefcase-number {
+  color: var(--gold);
+  background: var(--navy);
+}
+
+/* The player's own pick */
+.briefcase.personal {
+  z-index: 3;
+  transform: scale(1.04);
+  background: linear-gradient(160deg, #fff1b8, var(--gold) 40%, #b87a00);
+  border-color: #fff;
+  animation: personalGlow 1.6s ease-in-out infinite;
+}
+
+.briefcase.personal::before {
+  background: #b87a00;
+  border-color: #fff1b8;
+}
+
+.briefcase.personal .briefcase-number {
+  color: var(--gold);
+  background: var(--navy);
+}
+
+@keyframes personalGlow {
+  0%, 100% { box-shadow: 0 0 10px rgba(255, 211, 107, .8), 0 4px 10px rgba(0, 0, 0, .6); }
+  50%      { box-shadow: 0 0 26px rgba(255, 211, 107, 1),  0 4px 10px rgba(0, 0, 0, .6); }
+}
+
+/* ==========================================================
+   BIG REVEAL (photo that pops up when you pick one)
+   game.js adds a clone to <body> with .center-open
+   ========================================================== */
+
+body > .briefcase.center-open {
+  position: fixed;
+  inset: 0;
+  z-index: 15000;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 20px;
+
+  background: rgba(14, 2, 12, .88);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  transform: none;
+  pointer-events: none;
+  animation: fadeIn .25s ease both;
+}
+
+.center-open::before { display: none; }
+
+.center-open .center-img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(440px, 82vw);
+  max-height: 58vh;
+  max-height: 58dvh;
+  object-fit: contain;
+
+  border: 6px solid #fff;
+  border-radius: 16px;
+  box-shadow: 0 0 0 4px var(--pink), 0 0 60px rgba(255, 31, 142, .85);
+  animation: pop .45s cubic-bezier(.2, 1.4, .4, 1) both;
+}
+
+.center-open .center-amount {
+  padding: 8px 28px;
+  color: #fff;
+  font-weight: 800;
+  font-size: clamp(1.6rem, 5vw, 3rem);
+  line-height: 1.1;
+  white-space: nowrap;
+  background: linear-gradient(180deg, #ff5fae, #d60072);
+  border: 3px solid #fff;
+  border-radius: 999px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, .5);
+}
+
+.personal-box-reveal .center-img {
+  box-shadow: 0 0 0 4px var(--gold), 0 0 70px rgba(255, 211, 107, .9);
+}
+
+.personal-box-message {
+  text-align: center;
+  color: var(--gold);
+  font: 400 clamp(1.7rem, 5.5vw, 3.4rem) / 1.1 var(--font-marker);
+  text-shadow: 0 0 18px rgba(255, 31, 142, .9), 0 3px 0 rgba(0, 0, 0, .5);
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+@keyframes pop {
+  from { opacity: 0; transform: scale(.7) rotate(-3deg); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ==========================================================
+   SIDE PANEL: BUTTONS, PRIZES, OFFERS
+   ========================================================== */
+
+#prizesSection {
+  min-width: 0;
+  padding: 14px 12px 16px;
+  text-align: center;
+
+  background: linear-gradient(180deg, var(--navy), var(--navy-deep));
+  border: 2px solid var(--pink);
+  border-radius: 18px;
+  box-shadow:
+    0 0 0 4px rgba(255, 255, 255, .22),
+    0 12px 30px rgba(20, 0, 40, .45);
+}
+
+#headerButtons {
+  display: grid;
+  gap: 8px;
+  margin: 0 0 14px;
+}
+
+#headerButtons button {
+  min-height: 42px;
+  margin: 0;
+  padding: 8px 10px;
+
+  color: #fff;
+  font-weight: 700;
+  font-size: .85rem;
+  line-height: 1.1;
+
+  background: linear-gradient(180deg, #ff6db4, #e6007a);
+  border: 2px solid #ffc2e0;
+  border-radius: 12px;
+  box-shadow: 0 3px 0 #8d0049;
+  transition: transform .1s ease, box-shadow .1s ease, filter .15s ease;
+}
+
+#headerButtons button:hover  { filter: brightness(1.1); }
+#headerButtons button:active { transform: translateY(2px); box-shadow: 0 1px 0 #8d0049; }
+
+/* The music label has a <br> in the HTML; keep it on one line */
+#musicToggleBtn br { display: none; }
+
+#prizesSection h2 {
+  margin: 4px 0 10px;
+  color: #fff;
+  font: 400 1.6rem / 1.1 var(--font-marker);
+  letter-spacing: .03em;
+  text-shadow: 0 0 12px var(--pink);
+}
+
+#prizeBoard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 8px;
+}
+
+.prize-column {
+  display: grid;
+  gap: 5px;
+  align-content: start;
+}
+
+#prizeBoard li {
+  padding: 5px 6px;
+  color: #fff;
+  font-weight: 700;
+  font-size: clamp(.82rem, 1vw, 1rem);
+  line-height: 1.1;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  background: rgba(255, 255, 255, .12);
+  border-radius: 8px;
+}
+
+#prizeBoard li.eliminated {
+  color: rgba(255, 255, 255, .28);
+  background: transparent;
+  text-decoration: line-through;
+}
+
+.prize-divider {
+  height: 2px;
+  margin: 16px 0 12px;
+  background: linear-gradient(90deg, transparent, var(--pink), transparent);
+}
+
+#offersHistory {
+  display: grid;
+  gap: 5px;
+}
+
+#offersHistory li {
+  padding: 5px 8px;
+  color: var(--pink-soft);
+  font-weight: 600;
+  font-size: .85rem;
+  line-height: 1.1;
+  background: rgba(255, 31, 142, .14);
+  border-radius: 8px;
+}
+
+#offersHistory:empty::before {
+  content: "No offers yet";
+  color: rgba(255, 255, 255, .45);
+  font-size: .85rem;
+}
+
+/* ==========================================================
+   FOOTER BAR
+   ========================================================== */
+
+.birthday-bottom-area {
+  grid-area: 3 / 1;
+  display: grid;
+  grid-template-columns: minmax(170px, 230px) 1fr minmax(170px, 230px);
+  align-items: center;
+  gap: 14px;
+  padding: 8px max(14px, calc((100% - 1700px) / 2 + 14px));
+
+  background: linear-gradient(180deg, #ffd0e6, #ff9ccb);
+  border-top: 3px solid var(--pink);
+  box-shadow: 0 -6px 20px rgba(110, 0, 64, .25);
+}
+
+.birthday-bottom-message {
+  padding: 7px 12px;
+  font-size: clamp(.74rem, .95vw, 1rem);
+  line-height: 1.15;
+  box-shadow: none;
+}
+
+.birthday-cheers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+
+  color: var(--navy);
+  font: 400 clamp(1.7rem, 2.8vw, 3rem) / 1 var(--font-marker);
+  text-align: center;
+  text-shadow: 0 2px 0 rgba(255, 255, 255, .8);
+}
+
+.birthday-heart,
+.birthday-sparkle {
+  color: var(--pink-deep);
+  font-size: .7em;
+}
+
+/* ==========================================================
+   POP-UP MODAL (offers, rounds, results)
+   ========================================================== */
+
+.modal {
+  display: none;               /* game.js switches this to flex */
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  overflow-y: auto;
+  background: rgba(14, 2, 12, .85);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  width: 100%;
+  max-width: 560px;
+  margin: auto;
+  padding: 28px 22px 24px;
+  text-align: center;
+  color: #fff;
+
+  background: radial-gradient(circle at 50% 0, #5b0a3a, var(--plum) 72%);
+  border: 3px solid var(--pink);
+  border-radius: 22px;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, .2), 0 0 50px rgba(255, 31, 142, .55);
+  animation: pop .4s cubic-bezier(.2, 1.3, .4, 1) both;
+}
+
+.message {
+  margin: 0 0 12px;
+  color: var(--pink-soft);
+  font-size: clamp(1.05rem, 2.4vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.cases-to-open {
+  margin: 0;
+  color: #fff;
+  font-weight: 700;
+  font-size: clamp(1.4rem, 4vw, 2.4rem);
+  line-height: 1.25;
+}
+
+.cases-to-open strong {
+  color: var(--gold);
+  font-size: 1.3em;
+}
+
+.round-number {
+  margin: 0 0 8px;
+  color: var(--gold);
+  font: 400 clamp(1.8rem, 5vw, 3rem) / 1.1 var(--font-marker);
+}
+
+.bank-offer {
+  margin: 4px 0 14px;
+  color: var(--gold);
+  font-weight: 800;
+  font-size: clamp(2.6rem, 9vw, 4.4rem);
+  line-height: 1;
+  text-shadow: 0 0 26px rgba(255, 211, 107, .55);
+}
+
+.modal-content button {
+  min-height: 52px;
+  margin: 10px 6px 0;
+  padding: 12px 28px;
+
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.05rem;
+
+  background: var(--navy);
+  border: 0;
+  border-radius: 14px;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, .4);
+  transition: transform .1s ease, filter .15s ease;
+}
+
+.modal-content button:hover  { filter: brightness(1.12); }
+.modal-content button:active { transform: translateY(2px); }
+
+.modal-content button.deal    { background: linear-gradient(180deg, #2ecf86, #0f9a5b); }
+.modal-content button.decline { background: linear-gradient(180deg, #ff5fae, #d60072); }
+
+/* Win screen */
+.modal-content.result-modal {
+  color: #3b0a26;
+  background: linear-gradient(160deg, #fff1b8, var(--gold) 55%, #ffb02e);
+  border-color: #fff;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, .5), 0 0 60px rgba(255, 211, 107, .85);
+}
+
+.result-modal .message {
+  color: #3b0a26;
+  font-weight: 700;
+}
+
+/* ==========================================================
+   FIREWORKS
+   ========================================================== */
+
+#fireworksContainer {
+  position: fixed;
+  inset: 0;
+  z-index: 16000;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.firework {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle, #fff 0 25%, var(--pink) 55%, transparent 72%);
+  border-radius: 50%;
+  animation: explode 1.5s ease-out forwards;
+}
+
+.firework:nth-child(3n)   { background: radial-gradient(circle, #fff 0 25%, var(--gold) 55%, transparent 72%); }
+.firework:nth-child(3n+1) { background: radial-gradient(circle, #fff 0 25%, #6fd3ff 55%, transparent 72%); }
+
+@keyframes explode {
+  from { transform: scale(1); opacity: 1; }
+  to   { transform: scale(6); opacity: 0; }
+}
+
+/* ==========================================================
+   INTRO VIDEO + LOADING SCREEN
+   ========================================================== */
+
+#introVideoContainer {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+}
+
+#introVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #000;
+}
+
+/* Portrait screens: show the whole video instead of cropping it */
+@media (max-aspect-ratio: 1 / 1) {
+  #introVideo { object-fit: contain; }
+}
+
+#introButtons {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: max(28px, env(safe-area-inset-bottom));
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 12px;
+}
+
+#introButtons button {
+  min-height: 48px;
+  margin: 0;
+  padding: 12px 22px;
+
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  white-space: nowrap;
+
+  background: linear-gradient(180deg, #ff6db4, #e6007a);
+  border: 2px solid #ffc2e0;
+  border-radius: 999px;
+  box-shadow: 0 4px 0 #8d0049, 0 8px 18px rgba(0, 0, 0, .5);
+}
+
+#introPlayButton {
+  padding-inline: 30px;
+  font-size: 1.1rem;
+}
+
+#loadingOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 30000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font: 400 clamp(1.6rem, 6vw, 2.6rem) var(--font-marker);
+  background: radial-gradient(circle at 50% 40%, #5b0a3a, var(--plum));
+}
+
+/* ==========================================================
+   TABLET & SMALL LAPTOP: stack the side panel under the board
+   ========================================================== */
+
+@media (max-width: 1000px) {
+
+  main { grid-template-columns: minmax(0, 1fr); }
+
+  #headerButtons { grid-template-columns: repeat(3, 1fr); }
+
+  #prizeBoard { grid-template-columns: 1fr; gap: 6px; }
+
+  .prize-column {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  #prizeBoard li { padding: 5px 11px; }
+
+  #offersHistory {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .birthday-bottom-area { grid-template-columns: 1fr; }
+  .birthday-bottom-message { display: none; }
+}
+
+/* ==========================================================
+   PHONES
+   ========================================================== */
+
+@media (max-width: 700px) {
+
+  body { background-attachment: scroll; }
+
+  /* Banner: zoom in on the title instead of shrinking it */
+  .birthday-top-scenery {
+    height: 150px;
+    background-size: 170% auto;
+    background-position: 50% 0;
+  }
+
+  .birthday-header-message { display: none; }
+
+  main { padding: 10px 8px; gap: 10px; }
+
+  /* Prizes first, so the player always knows what is still in play */
+  #prizesSection {
+    order: -1;
+    padding: 10px 8px 12px;
+  }
+
+  #prizesSection h2 { font-size: 1.25rem; margin: 2px 0 8px; }
+
+  #prizeBoard li { padding: 4px 8px; font-size: .78rem; }
+
+  #offersHistory li { font-size: .78rem; }
+
+  /* Hide the offers area until there is something in it */
+  #offersHistory:empty,
+  #offersHistory:empty::before { display: none; }
+
+  #prizesSection:has(#offersHistory:empty) :is(.prize-divider, h2:last-of-type) {
+    display: none;
+  }
+
+  .prize-divider { margin: 12px 0 8px; }
+
+  #headerButtons { gap: 6px; margin-bottom: 10px; }
+
+  #headerButtons button {
+    min-height: 40px;
+    padding: 6px 4px;
+    font-size: .72rem;
+  }
+
+  #briefcasesSection { padding: 12px 10px 12px; border-radius: 16px; }
+
+  #gameMessage { padding: 9px 12px; font-size: 1rem; }
+
+  #briefcasesContainer {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px 8px;
+  }
+
+  .briefcase { padding: 4px; border-radius: 10px; }
+
+  .briefcase::before { top: -10px; height: 10px; border-width: 2px; }
+
+  .briefcase-img { border-width: 1px; border-radius: 6px; }
+
+  .briefcase-number {
+    margin-top: 4px;
+    padding: 5px 2px;
+    font-size: .78rem;
+    border-radius: 6px;
+  }
+
+  .birthday-bottom-area {
+    padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
+  }
+
+  .birthday-cheers { font-size: clamp(1.3rem, 6.4vw, 1.9rem); gap: 8px; }
+
+  .birthday-bottom-scenery { display: none; }
+
+  /* Pop-ups: full-width, big thumb-friendly buttons */
+  .modal { padding: 12px; }
+
+  .modal-content { padding: 22px 16px 18px; border-radius: 18px; }
+
+  .modal-content button {
+    display: block;
+    width: 100%;
+    margin: 10px 0 0;
+  }
+
+  .center-open .center-img { max-width: 86vw; max-height: 52dvh; }
+
+  #introButtons button { padding: 11px 16px; font-size: .9rem; }
+}
+
+@media (max-width: 340px) {
+  #briefcasesContainer { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* ==========================================================
+   TV / DESKTOP FULLSCREEN
+   Everything is sized from the screen height so the whole
+   game fits with no scrolling. Photo rows share the space.
+   ========================================================== */
+
+@media (min-width: 1001px) {
+
+  html:fullscreen { background: var(--plum); }
+
+  body.tv-fullscreen {
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    grid-template-rows: 19vh minmax(0, 1fr) 6.5vh 5vh;
+    background-attachment: scroll;
+  }
+
+  body.tv-fullscreen .birthday-top-scenery,
+  body.tv-fullscreen .birthday-bottom-scenery {
+    height: 100%;
+    min-height: 0;
+  }
+
+  body.tv-fullscreen header { padding-bottom: 1vh; }
+
+  body.tv-fullscreen .birthday-header-message {
+    padding: .8vh 1vw;
+    font-size: clamp(.7rem, 1.7vh, 1.1rem);
+  }
+
+  body.tv-fullscreen main {
+    height: 100%;
+    min-height: 0;
+    padding: 1.4vh .8vw;
+    gap: .8vw;
+    grid-template-columns: minmax(0, 1fr) 19vw;
+    align-items: stretch;
+  }
+
+  body.tv-fullscreen #briefcasesSection {
+    min-height: 0;
+    padding: 1.4vh .7vw 1vh;
+  }
+
+  body.tv-fullscreen #briefcasesInfo { margin-bottom: 1.2vh; }
+
+  body.tv-fullscreen #gameMessage {
+    padding: .7vh 1vw;
+    font-size: clamp(1rem, 2.6vh, 1.7rem);
+  }
+
+  body.tv-fullscreen #briefcasesContainer {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    gap: 2.4vh .7vw;
+    padding-top: 1.2vh;
+    align-items: stretch;
+  }
+
+  /* Cards keep a portrait shape and fill the row height */
+  body.tv-fullscreen .briefcase {
+    height: 100%;
+    width: min(100%, 13.5vh);
+    max-width: 100%;
+    min-width: 0;
+    min-height: 0;
+    aspect-ratio: auto;
+    justify-self: center;
+    align-self: stretch;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    padding: .5vh .4vw;
+  }
+
+  body.tv-fullscreen .briefcase-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    max-height: none;
+    aspect-ratio: auto;
+    object-fit: cover;
+    object-position: center 18%;
+  }
+
+  body.tv-fullscreen .briefcase-number {
+    flex: 0 0 auto;
+    margin-top: .5vh;
+    padding: .7vh .2vw;
+    font-size: clamp(.8rem, 2vh, 1.3rem);
+  }
+
+  body.tv-fullscreen .briefcase::before { top: -1.3vh; height: 1.3vh; }
+
+  /* Side panel */
+  body.tv-fullscreen #prizesSection {
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 1.2vh .7vw;
+  }
+
+  body.tv-fullscreen #headerButtons {
+    grid-template-columns: 1fr 1fr;
+    gap: .6vh .4vw;
+    margin-bottom: 1.2vh;
+  }
+
+  body.tv-fullscreen #headerButtons button {
+    min-height: 0;
+    padding: .8vh .3vw;
+    font-size: clamp(.62rem, 1.5vh, .85rem);
+  }
+
+  body.tv-fullscreen #musicToggleBtn { grid-column: 1 / -1; }
+
+  body.tv-fullscreen #prizesSection h2 {
+    margin: 0 0 .8vh;
+    font-size: clamp(1rem, 2.8vh, 1.7rem);
+  }
+
+  body.tv-fullscreen #prizeBoard { gap: .5vh .5vw; }
+
+  body.tv-fullscreen .prize-column { gap: .5vh; }
+
+  body.tv-fullscreen #prizeBoard li {
+    padding: .5vh .3vw;
+    font-size: clamp(.7rem, 1.9vh, 1.15rem);
+  }
+
+  body.tv-fullscreen .prize-divider { margin: 1.2vh 0 1vh; }
+
+  body.tv-fullscreen #offersHistory {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    grid-template-columns: 1fr 1fr;
+    gap: .5vh .4vw;
+    align-content: start;
+  }
+
+  body.tv-fullscreen #offersHistory li {
+    padding: .5vh .3vw;
+    font-size: clamp(.62rem, 1.5vh, .9rem);
+  }
+
+  /* Footer + bottom art */
+  body.tv-fullscreen .birthday-bottom-area {
+    padding-block: .3vh;
+    grid-template-columns: minmax(160px, 15vw) 1fr minmax(160px, 15vw);
+    overflow: hidden;
+  }
+
+  body.tv-fullscreen .birthday-bottom-message {
+    padding: .5vh .6vw;
+    font-size: clamp(.65rem, 1.6vh, 1rem);
+  }
+
+  body.tv-fullscreen .birthday-cheers { font-size: clamp(1.4rem, 4.2vh, 3rem); }
+
+  body.tv-fullscreen .modal-content { max-width: min(640px, 55vw); }
+}
+
+/* ==========================================================
+   ACCESSIBILITY: respect "reduce motion"
+   ========================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+
+/* ==========================================================
+   FINAL FULLSCREEN LAYOUT FIX
+   #gameStage is the actual wrapper around the scenery, header,
+   game board and footer, so IT must become the fullscreen grid.
+   ========================================================== */
+@media (min-width: 1001px) {
+
+  body.tv-fullscreen {
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    display: block;
+  }
+
+  body.tv-fullscreen #gameStage {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 19vh minmax(0, 1fr) 6.5vh 5vh;
+  }
+
+  body.tv-fullscreen .birthday-top-scenery {
+    grid-area: 1 / 1;
+    height: 100%;
+    min-height: 0;
+  }
+
+  body.tv-fullscreen header {
+    grid-area: 1 / 1;
+    align-self: end;
+  }
+
+  body.tv-fullscreen main {
+    grid-area: 2 / 1;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    min-height: 0;
+    margin: 0;
+    padding: 1.4vh .8vw;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 19vw;
+    gap: .8vw;
+    align-items: stretch;
+  }
+
+  body.tv-fullscreen #briefcasesSection {
+    height: 100%;
+    min-height: 0;
+    overflow: visible;
+    padding: 1.2vh .7vw .8vh;
+  }
+
+  body.tv-fullscreen #briefcasesInfo {
+    flex: 0 0 auto;
+    margin: 0 0 .8vh;
+  }
+
+  body.tv-fullscreen #briefcasesContainer {
+    flex: 1 1 auto;
+    height: auto;
+    min-height: 0;
+
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+
+    gap: 2.1vh .8vw;
+    padding: 1.1vh .25vw .2vh;
+    align-items: stretch;
+    overflow: visible;
+  }
+
+  body.tv-fullscreen .briefcase {
+    box-sizing: border-box;
+    width: min(100%, 13.5vh);
+    height: 100%;
+    min-height: 0;
+    max-height: none;
+
+    justify-self: center;
+    align-self: stretch;
+
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+
+    padding: .45vh .35vw .4vh;
+    overflow: visible;
+  }
+
+  body.tv-fullscreen .briefcase-img {
+    display: block !important;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    max-height: none;
+    aspect-ratio: auto;
+
+    object-fit: cover;
+    object-position: center 18%;
+
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  body.tv-fullscreen .briefcase-number {
+    margin-top: .35vh;
+    padding: .45vh .15vw;
+    font-size: clamp(.72rem, 1.65vh, 1.05rem);
+    line-height: 1;
+  }
+
+  body.tv-fullscreen .briefcase::before {
+    top: -1.05vh;
+    height: 1.05vh;
+  }
+
+  body.tv-fullscreen #prizesSection {
+    height: 100%;
+    min-height: 0;
+  }
+
+  body.tv-fullscreen .birthday-bottom-area {
+    grid-area: 3 / 1;
+    min-height: 0;
+  }
+
+  body.tv-fullscreen .birthday-bottom-scenery {
+    grid-area: 4 / 1;
+    height: 100%;
+    min-height: 0;
+  }
+}
+
+/* ==========================================================
+   FULLSCREEN PICK-REVEAL FIX
+   Keep the reveal looking like the normal in-board reveal
+   instead of turning it into a full-screen takeover.
+   ========================================================== */
+@media (min-width: 1001px) {
+  body.tv-fullscreen > .briefcase.center-open {
+    position: fixed;
+    inset: auto;
+    left: 50%;
+    top: 50%;
+    z-index: 15000;
+
+    width: min(520px, 34vw);
+    height: auto;
+    min-height: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2vh;
+
+    padding: 1.4vh 1vw 1.6vh;
+
+    background: linear-gradient(
+      180deg,
+      rgba(38, 8, 29, .97),
+      rgba(14, 3, 15, .98)
+    );
+    border: 4px solid var(--gold);
+    border-radius: 22px;
+    box-shadow:
+      0 0 0 4px rgba(255,255,255,.92),
+      0 0 45px rgba(255,211,107,.72),
+      0 18px 50px rgba(0,0,0,.72);
+
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    animation: revealCardIn .28s ease both;
+  }
+
+  body.tv-fullscreen > .briefcase.center-open::before {
+    display: none;
+  }
+
+  body.tv-fullscreen > .briefcase.center-open .center-img {
+    display: block !important;
+    width: auto;
+    height: auto;
+    max-width: min(430px, 29vw);
+    max-height: 48vh;
+    object-fit: contain;
+    object-position: center;
+
+    border: 6px solid #fff;
+    border-radius: 16px;
+    box-shadow:
+      0 0 0 4px var(--gold),
+      0 0 38px rgba(255,211,107,.7);
+  }
+
+  body.tv-fullscreen > .briefcase.center-open .personal-box-message {
+    margin: .2vh 0 0;
+    color: var(--gold);
+    font-size: clamp(1.7rem, 3.3vw, 3.3rem);
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  body.tv-fullscreen > .briefcase.center-open .center-amount {
+    margin: .2vh 0 0;
+    padding: .7vh 2vw;
+    font-size: clamp(1.5rem, 2.7vw, 2.8rem);
+    line-height: 1;
+  }
+}
+
+@keyframes revealCardIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.82);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
